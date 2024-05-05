@@ -1,79 +1,40 @@
 <template>
   <div>
-    <!--    <h1>监视情况1：监视ref定义的基本数据类型</h1>-->
-    <!--    <h2>计数和：{{ sum }}</h2>-->
-    <!--    &lt;!&ndash;    <h1>监视情况2：监视ref定义的基本数据类型</h1>&ndash;&gt;-->
-    <!--    <button @click="inscSum">计数+1</button>-->
-
-    <!--    <hr/>-->
-
-    <!--    <h1>监视情况2：监视ref定义的对象类型数据</h1>-->
-    <!--    <h2>姓名：{{ person.name }}</h2>-->
-    <!--    <h2>姓名：{{ person.age }}</h2>-->
-    <!--    <button @click="changeName">修改姓名</button>-->
-    <!--    <button @click="changeAge">修改年龄</button>-->
-    <!--    <button @click="changePerson">修改人</button>-->
-    <!--    <hr/>-->
-    <!--    <h1>监视情况3：监视reactive定义的对象类型数据</h1>-->
-    <!--    <h2>姓名：{{ person.name }}</h2>-->
-    <!--    <h2>姓名：{{ person.age }}</h2>-->
-    <!--    <button @click="changeName">修改姓名</button>-->
-    <!--    <button @click="changeAge">修改年龄</button>-->
-    <!--    <button @click="changePerson">修改人</button>-->
-
-    <h1>监视情况5：监视多个数据</h1>
-    <h2>姓名：{{ person.name }}</h2>
-    <h2>姓名：{{ person.age }}</h2>
-    <h2>第一辆车：{{ person.car.c1 }}</h2>
-    <h2>第二辆车：{{ person.car.c2 }}</h2>
-    <button @click="changeName">修改姓名</button>
-    <button @click="changeAge">修改年龄</button>
-    <button @click="changeC1">修改第一辆车</button>
-    <button @click="changeC2">修改第二辆车</button>
-    <button @click="changeCar">修改车</button>
+    <h1>需求：监听水温和水位，当水温达到80或者水位达到30，向服务器发请求</h1>
+    <h1>水温：{{ temp }}</h1>
+    <h1>水位：{{ height }}</h1>
+    <button @click="changeTemp">水温+10</button>
+    <button @click="changeHeight">水位+10</button>
   </div>
 </template>
 
 <script setup lang="ts" name="Person">
-import {ref, reactive, watch} from "vue";
+import {ref, reactive, watch, watchEffect} from "vue";
 
-/****************************************************************/
+let temp = ref(20);
+let height = ref(0);
 
-let person = reactive(
-    {
-      'name': '张三',
-      'age': 18,
-      'car': {
-        'c1': '奥迪',
-        'c2': '宝马'
-      }
-    }
-)
-
-function changeName() {
-  person.name += '!'
+function changeTemp() {
+  temp.value += 10
 }
 
-function changeAge() {
-  person.age += 1
+function changeHeight() {
+  height.value += 10
 }
 
-function changeC1() {
-  person.car.c1 = '奔驰'
-}
+//使用watch机制实现，但是需要显示的指明监视的数据
+// watch([temp, height], (newValues, oldValues) => {
+//   if (newValues[0] >= 80 || newValues[1] >= 30) {
+//     console.log('向服务器发请求')
+//   }
+// })
 
-function changeC2() {
-  person.car.c2 = '雅迪'
-}
-
-function changeCar() {
-  person.car = {'c1': '雅迪', 'c2': '小牛'}
-}
-
-//监视响应式对象中的多个属性变化
-watch([() => person.name, () => person.car.c1], (newValues, oldValues) => {
-  console.log('name或者c1变化了', newValues, oldValues)
-}, {deep: true})
+//使用watchEffect，进入页面就会执行一次
+watchEffect(() => {
+  if (temp.value >= 80 || height.value >= 30) {
+    console.log('向服务器发请求')
+  }
+})
 
 </script>
 
