@@ -3,16 +3,14 @@
     <h1>你好啊！</h1>
     <Person/>
     <Hr/>
-    <Car/>
   </div>
 </template>
 
 <script lang="ts">
 import Person from "@/components/Person.vue";
-import Car from "@/components/Car.vue";
 export default {
   name: "App",
-  components: {Person,Car}
+  components: {Person}
 };
 </script>
 
