@@ -1,28 +1,38 @@
-<script lang="ts" setup>
-import {reactive,toRefs,toRef} from 'vue'
+<script lang="ts" setup xmlns="http://www.w3.org/1999/html">
+import {computed, ref} from 'vue'
 
-let person = reactive({'name': '张三', 'age': 19})
-// toRefs 将一个响应式对象中的每一个属性，转换为`ref`对象。
-// 通过toRefs将person对象中的n个属性批量取出，且依然保持响应式的能力
-let {name, age} = toRefs(person);
-// 通过toRef将person对象中的age属性取出，且依然保持响应式的能力
-let newAge = toRef(person,'age');
+let firstName = ref('zhang');
+let lastName = ref('san');
+
+//这种计算方式fullName可读不可写
+// let fullName = computed(() => {
+//   return firstName.value.slice(0, 1).toUpperCase() + firstName.value.slice(1) + '-' + lastName.value;
+// })
+
+//这种方式fullName可读可写
+let fullName = computed({
+  get() {
+    return firstName.value.slice(0, 1).toUpperCase() + firstName.value.slice(1) + '-' + lastName.value;
+  },
+  //执行fullName.value = 'Li-si';会调用set方法，参数就是赋的值
+  set(val) {
+    console.log(val);
+    const [fName,LName] = val.split('-');
+    firstName.value = fName;
+    lastName.value = LName;
+  }
+})
 
 function changeName() {
-  name.value += '~';
-  // person.name += '~';
-}
-
-function changeAge() {
-  // person.age += 2;
-  newAge.value += 2;
+  fullName.value = 'Li-si';
 }
 </script>
 
 <template>
-  <h1>姓名：{{ person.name }}，年龄：{{ person.age }}</h1>
-  <button @click="changeName">修改姓名</button>
-  <button @click="changeAge">增加年龄</button>
+  姓：<input v-model="firstName"/> <br>
+  名：<input v-model="lastName"/> <br>
+  全名：<input v-model="fullName"/> <br>
+  <button @click="changeName">将全名改为Li-si</button>
 </template>
 
 <style scoped>
