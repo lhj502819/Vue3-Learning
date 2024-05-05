@@ -1,23 +1,37 @@
 <template>
   <div class="person">
-    <h1>中国</h1>
-    <h1 ref="city">北京</h1>
-    <button @click="showCityDom">展示城市的元素</button>
   </div>
 </template>
 
 <script setup lang="ts" name="Person">
-import {ref, defineExpose} from 'vue'
+import {type IPerson, type Persons, type Persons2} from '@/types'
 
-let city = ref();
-let a = ref(0);
-let b = ref(1);
-
-function showCityDom() {
-  console.log(city.value);
+let person: IPerson = {
+  name: '张三',
+  age: 18,
+  city: '北京'
 }
 
-defineExpose({city, a, b})
+//定义一个数组，数组里边规定存储IPerson类型的数据
+let personList: Array<IPerson> = [
+  {name: '张三', age: 18, city: '北京'},
+  {name: '张三', age: 20, city: '上海'},
+  {name: '王五', age: 18, city: '南京'},
+]
+
+//自定义数组类型
+let personList2: Persons = [
+  {name: '张三', age: 18, city: '北京'},
+  {name: '张三', age: 20, city: '上海'},
+  {name: '王五', age: 18, city: '南京'},
+]
+
+//自定义类型2
+let personList3: Persons2 = [
+  {name: '张三', age: 18, city: '北京'},
+  {name: '张三', age: 20, city: '上海'},
+  {name: '王五', age: 18, city: '南京'},
+]
 </script>
 
 <style scoped>
