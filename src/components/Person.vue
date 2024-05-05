@@ -21,7 +21,7 @@
     <!--    <button @click="changeAge">修改年龄</button>-->
     <!--    <button @click="changePerson">修改人</button>-->
 
-    <h1>监视情况4：监视ref/reactive定义的【对象类型】数据中的某个属性</h1>
+    <h1>监视情况5：监视多个数据</h1>
     <h2>姓名：{{ person.name }}</h2>
     <h2>姓名：{{ person.age }}</h2>
     <h2>第一辆车：{{ person.car.c1 }}</h2>
@@ -70,15 +70,10 @@ function changeCar() {
   person.car = {'c1': '雅迪', 'c2': '小牛'}
 }
 
-//监视响应式对象某个属性的变化，且该属性是基本数据类型，需要使用函数式
-watch(() => person.name, value => {
-  console.log('监听到name属性变化了', value)
-})
-
-//监视响应式对象中的某个属性，且该属性是对象类型，推荐使用函数式，也可以直接写
-watch(() => person.car, (newValue, oldValue) => {
-  console.log('监听到car属性变化了', newValue, oldValue)
-}, {deep: true});
+//监视响应式对象中的多个属性变化
+watch([() => person.name, () => person.car.c1], (newValues, oldValues) => {
+  console.log('name或者c1变化了', newValues, oldValues)
+}, {deep: true})
 
 </script>
 
