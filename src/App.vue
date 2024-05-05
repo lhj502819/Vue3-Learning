@@ -2,7 +2,6 @@
   <div class="app">
     <h1>你好啊！</h1>
     <Person/>
-    <Hr/>
   </div>
 </template>
 
