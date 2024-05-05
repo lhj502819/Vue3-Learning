@@ -1,32 +1,28 @@
 <script lang="ts" setup>
-import {ref} from 'vue'
-//数据
-let name = ref("张三"); //此时的name不是响应式的
-let age = ref(18); //此时的age不是响应式的
-let tel = 13888888; //此时的tel不是响应式的
+import {reactive,toRefs,toRef} from 'vue'
 
-//方法
+let person = reactive({'name': '张三', 'age': 19})
+// toRefs 将一个响应式对象中的每一个属性，转换为`ref`对象。
+// 通过toRefs将person对象中的n个属性批量取出，且依然保持响应式的能力
+let {name, age} = toRefs(person);
+// 通过toRef将person对象中的age属性取出，且依然保持响应式的能力
+let newAge = toRef(person,'age');
+
 function changeName() {
-  name.value = "李四";
+  name.value += '~';
+  // person.name += '~';
 }
 
 function changeAge() {
-  age.value += 1;
-}
-
-function showTel() {
-  alert(tel);
+  // person.age += 2;
+  newAge.value += 2;
 }
 </script>
 
 <template>
-  <div class="person">
-    <h2>姓名：{{ name }}</h2>
-    <h2>年龄：{{ age }}</h2>
-    <button @click="changeName">修改名字</button>
-    <button @click="changeAge">修改年龄</button>
-    <button @click="showTel">查看联系方式</button>
-  </div>
+  <h1>姓名：{{ person.name }}，年龄：{{ person.age }}</h1>
+  <button @click="changeName">修改姓名</button>
+  <button @click="changeAge">增加年龄</button>
 </template>
 
 <style scoped>
