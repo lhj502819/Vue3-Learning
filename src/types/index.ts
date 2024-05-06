@@ -1,5 +1,6 @@
 //定义一个接口，用于限制Person对象的具体属性
 export interface IPerson {
+    id: number;
     name: string;
     age: number;
     city: string,

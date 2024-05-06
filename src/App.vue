@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <h1>你好啊！</h1>
-    <Person :personList="personList" />
+    <Person />
   </div>
 </template>
 
@@ -12,9 +12,9 @@ import type {Persons} from "@/types";
 
 //将数据传给子组件
 let personList = reactive<Persons>([
-  {name: '张三', age: 18, city: '北京'},
-  {name: '李四', age: 18, city: '上海', address: '上海黄浦江'},
-  {name: '王五', age: 18, city: '天津'},
+  {id: 1, name: '张三', age: 18, city: '北京'},
+  {id: 2, name: '李四', age: 18, city: '上海', address: '上海黄浦江'},
+  {id: 3, name: '王五', age: 18, city: '天津'},
 ])
 </script>
 
