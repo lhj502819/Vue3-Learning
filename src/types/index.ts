@@ -2,7 +2,8 @@
 export interface IPerson {
     name: string;
     age: number;
-    city: string;
+    city: string,
+    address?: string
 }
 
 //一个自定义类型
