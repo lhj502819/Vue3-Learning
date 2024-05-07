@@ -1,46 +1,21 @@
 <template>
   <div class="person">
-    <h2>当前求和为：{{ sum }}</h2>
+    <h2>当前求和为：{{ sum }}，放大十倍后：{{bigSum}}</h2>
     <button @click="changeSum">点我sum+1</button>
+    <br>
+    <img v-for="(dog,index) in dogList" :src=dog :key="index">
+    <br>
+    <button @click="getDog">再来一条狗</button>
   </div>
 </template>
 
 <script setup lang="ts" name="Person">
 
-import {onBeforeMount, onBeforeUnmount, onBeforeUpdate, onMounted, onUnmounted, onUpdated, ref} from 'vue'
+import useDog from "@/hooks/useDog";
+import useSum from "@/hooks/useSum";
 
-let sum = ref(0)
-
-function changeSum() {
-  sum.value += 1
-}
-
-//创建，setup函数会优先执行
-console.log("创建了")
-
-onBeforeMount(() => {
-  console.log("子挂载之前")
-})
-
-onMounted(() => {
-  console.log("子挂载完成了")
-})
-
-onBeforeUpdate(() => {
-  console.log("更新之前")
-})
-
-onUpdated(() => {
-  console.log("更新完成了")
-})
-
-onBeforeUnmount(() => {
-  console.log("卸载之前")
-})
-
-onUnmounted(() => {
-  console.log("卸载了")
-})
+const {dogList, getDog} = useDog();
+const {sum, changeSum, bigSum} = useSum();
 
 </script>
 
@@ -58,5 +33,11 @@ button {
 
 ul {
   font-size: 20px;
+}
+
+img {
+  height: 100px;
+  margin-top: 20px;
+  margin-right: 20px;
 }
 </style>
