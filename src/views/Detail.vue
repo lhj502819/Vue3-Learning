@@ -1,18 +1,14 @@
 <template>
   <ul>
-    <li>编号：{{params.id }}</li>
-    <li>标题：{{params.title }}</li>
-    <li>内容：{{params.content }}</li>
+    <li>编号：{{id }}</li>
+    <li>标题：{{title }}</li>
+    <li>内容：{{content }}</li>
   </ul>
 </template>
 
 <script setup name="Detail" lang="ts">
 
-import {useRoute} from "vue-router";
-import {toRef, toRefs} from "vue";
-
-let route = useRoute()
-let {params} = toRefs(route)
+defineProps(['id','title','content'])
 
 </script>
 

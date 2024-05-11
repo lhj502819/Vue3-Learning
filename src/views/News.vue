@@ -6,7 +6,7 @@
         <!--第一种写法-->
 <!--        <RouterLink :to="`/news/detail/${news.id}/${news.title}/${news.content}`">{{ news.title }}</RouterLink>-->
         <!--第二种写法，只能使用name匹配-->
-        <RouterLink :to="{name: 'detail', params: {id: news.id, title: news.title, content: news.content}}">
+        <RouterLink :to="{name: 'detail', query: {id: news.id, title: news.title, content: news.content}}">
           {{ news.title }}
         </RouterLink>
       </li>
