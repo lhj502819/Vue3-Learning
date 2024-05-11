@@ -5,9 +5,10 @@
     <div class="navigate">
 
       <RouterLink to="/home" active-class="xiaozhupeiqi">首页</RouterLink>
+      <!-- 直接通过名字跳转（to的对象写法配合name属性） -->
       <RouterLink to="/news" active-class="xiaozhupeiqi">新闻</RouterLink>
-      <!--  另一种写法    -->
-      <RouterLink :to="{path:'/about'}" active-class="xiaozhupeiqi">关于</RouterLink>
+      <!--  另一种写法  -->
+      <RouterLink to="/about" active-class="xiaozhupeiqi">关于</RouterLink>
     </div>
     <!-- 展示区 -->
     <div class="main-content">

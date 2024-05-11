@@ -5,6 +5,7 @@ import {createRouter, createWebHistory} from "vue-router";
 import Home from "@/views/Home.vue";
 import News from "@/views/News.vue";
 import About from "@/views/About.vue";
+import Detail from "@/views/Detail.vue";
 
 //创建路由器，vue3在制定路由的时候需要考虑清楚路由的工作模式
 const router = createRouter({
@@ -16,11 +17,19 @@ const router = createRouter({
         },
         {
             path: '/news',
-            component: News
+            component: News,
+            children: [
+                {
+                    name: 'detail',
+                    path: 'detail',
+                    component: Detail
+                }
+            ]
         },
         {
             path: '/about',
-            component: About
+            component: About,
+
         }
     ]
 });
