@@ -21,7 +21,8 @@ const router = createRouter({
             children: [
                 {
                     name: 'detail',
-                    path: 'detail',
+                    // 加?表示content参数可选
+                    path: 'detail/:id/:title/:content?',
                     component: Detail
                 }
             ]
