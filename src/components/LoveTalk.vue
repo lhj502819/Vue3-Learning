@@ -2,7 +2,7 @@
   <div class="lovetalk">
     <button @click="getOneTalk">获取一句土味情话</button>
     <ul>
-      <li v-for="talk in talks" :key="talk.id">
+      <li v-for="talk in talkStore2.talkList" :key="talk.id">
         {{ talk.content }}
       </li>
     </ul>
@@ -13,15 +13,14 @@
 import axios from "axios";
 import {reactive} from "vue";
 import {v4} from "uuid";
+import {useTalkStore, useTalkStore2} from "@/store/LoveTalk";
 
-let talks = reactive([
-  {id: 1, content: "我想给你最好的，却发现最好的是你"},
-  {id: 2, content: "草莓，蓝莓，今天想我了没"},
-])
+const talkStore = useTalkStore()
 
+const talkStore2 = useTalkStore2()
 async function getOneTalk() {
-  const {data: {content}} = await axios.get('https://api.uomg.com/api/rand.qinghua')
-  talks.unshift({id: v4(), content: content})
+  // const {data: {content}} = await axios.get('https://api.uomg.com/api/rand.qinghua')
+  // talks.unshift({id: v4(), content: content})
 }
 </script>
 
