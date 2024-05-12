@@ -1,30 +1,34 @@
 import {defineStore} from "pinia";
 import axios from "axios";
 import {v4 as uuid} from 'uuid'
+import {reactive} from "vue";
 
-export const useTalkStore = defineStore('talk', {
-    state() {
-        return {
-            'talkList': [
-                {id: 1, content: "我想给你最好的，却发现最好的是你"},
-                {id: 2, content: "草莓，蓝莓，今天想我了没"},
-            ]
-        }
+//选项式
+// export const useTalkStore2 = defineStore('talk2', {
+//     state() {
+//         return {
+//             talkList: JSON.parse(localStorage.getItem("talkList") as string) || []
+//
+//         }
+//     },
+//     actions: {
+//         async getATalk() {
+//             const {data: {content}} = await axios.get('https://api.uomg.com/api/rand.qinghua')
+//             this.talkList.unshift({id: uuid(), content: content})
+//         }
+//     }
+// })
+
+//组合式
+export const useTalkStore2 = defineStore('talk2', () => {
+    const talkList = reactive(
+        JSON.parse(localStorage.getItem("talkList") as string) || []
+    )
+
+    async function getATalk() {
+        const {data: {content}} = await axios.get('https://api.uomg.com/api/rand.qinghua')
+        talkList.unshift({id: uuid(), content: content})
     }
-})
 
-
-export const useTalkStore2 = defineStore('talk2', {
-    state() {
-        return {
-            talkList: JSON.parse(localStorage.getItem("talkList") as string) || []
-
-        }
-    },
-    actions: {
-        async getATalk() {
-            const {data: {content}} = await axios.get('https://api.uomg.com/api/rand.qinghua')
-            this.talkList.unshift({id: uuid(), content: content})
-        }
-    }
+    return {talkList, getATalk}
 })
