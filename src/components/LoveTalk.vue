@@ -12,12 +12,18 @@
 <script setup lang="ts">
 import {useTalkStore2} from "@/store/LoveTalk";
 import {storeToRefs} from "pinia";
+
 const talkStore2 = useTalkStore2()
 
 const {talkList} = storeToRefs(talkStore2)
+
 async function getOneTalk() {
   await talkStore2.getATalk()
 }
+
+talkStore2.$subscribe((mutation, state) => {
+  localStorage.setItem("talkList", JSON.stringify(state.talkList))
+})
 </script>
 
 <style scoped>

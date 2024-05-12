@@ -15,5 +15,8 @@ export const useCountStore = defineStore('count', {
             this.school = school
             this.address = address
         }
+    },
+    getters:{
+        bigSum: state => state.sum * 10
     }
 })

@@ -1,6 +1,6 @@
 <template>
   <div class="count">
-    <h1>求和总数：{{ sum }}</h1>
+    <h1>求和总数：{{ sum }}，放大十倍后：{{ bigSum }}</h1>
     <h3>学校:{{ school }}，位于：{{ address }}</h3>
     <select v-model.number="n">
       <option>1</option>
@@ -22,7 +22,14 @@ let n = ref(1)
 const countStore = useCountStore()
 
 //storeToRefs只会关注store中的数据，不会关注store中的方法
-const {sum, school, address} = storeToRefs(countStore)
+const {sum, school, address, bigSum} = storeToRefs(countStore)
+
+countStore.$subscribe((mutation, state) => {
+  console.log('countStore中的数据发生了变化')
+  console.log('!!!!',mutation)
+  console.log('@@@@',state)
+  localStorage.setItem('sum', state.sum.toString())
+})
 
 function add() {
   //第一种修改数据的方式，拿到直接用
@@ -36,7 +43,7 @@ function add() {
   // })
 
   //第三种办法
-  countStore.changeData(n.value,'清华大学', '北京海淀区')
+  countStore.changeData(n.value, '清华大学', '北京海淀区')
 }
 
 function minus() {
