@@ -34,6 +34,11 @@ const router = createRouter({
             path: '/about',
             component: About,
 
+        },
+        //重定向，当用户访问根路径的时候，重定向到home
+        {
+            path: '/',
+            redirect: '/Home'
         }
     ]
 });
