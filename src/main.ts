@@ -1,12 +1,15 @@
-// 引入createAp，用于创建应用
 import {createApp} from 'vue'
-//引入APP根组件
 import App from './App.vue'
-import {createPinia} from "pinia";
-//引入路由器
+import {createPinia} from 'pinia'
+import router from './router'
+import emitter from "@/utils/emitter";
+
+// 创建应用
 const app = createApp(App)
-//创建Pinia
-const pinia = createPinia()
-//安装pinia
-app.use(pinia)
+
+emitter
+
+// 安装路由器
+app.use(router)
+// 挂载应用
 app.mount('#app')
